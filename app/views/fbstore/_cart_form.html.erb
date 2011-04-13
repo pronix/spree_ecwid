@@ -1,6 +1,5 @@
 <%= form_for :order, :url => populate_orders_url do |f| %>
 <%= hook :inside_product_cart_form do %>
-
   <% if @product.has_variants? %>
     <div id="product-variants">
       <h2><%= t('variants') %></h2>
@@ -29,8 +28,9 @@
     <%= text_field_tag (@product.has_variants? ? :quantity : "variants[#{@product.master.id}]"),
       1, :class => "title", :size => 3 %>
     &nbsp;
+  <%= hidden_field_tag(:from_fb, true) %>
     <button type='submit' class='large primary'>
-      <%= image_tag('/images/add-to-cart.png') + t('add_to_cart') %>
+      Add to cart
     </button>
   <% else %>
     <%= content_tag('strong', t('out_of_stock')) %>

@@ -13,4 +13,8 @@ class FbstoreController < Spree::BaseController
                           :include => [:property])
     @selected_variant = @variants.detect { |v| v.available? }
   end
+
+  def cart
+
+  end
 end
