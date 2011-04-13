@@ -1,0 +1,13 @@
+  <ul class="product-list clearfix">
+    <% for product in @products do %>
+      <li>
+        <span class="price">
+          <%= product.price %>
+        </span>
+        <%= link_to small_image(product), fbshow_path(:id => product.id) %>
+        <h4>
+          <%= product.name %>
+        </h4>
+      </li>
+    <% end %>
+  </ul>
