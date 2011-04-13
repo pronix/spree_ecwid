@@ -15,6 +15,6 @@ class FbstoreController < Spree::BaseController
   end
 
   def cart
-
+    @order = current_order(true)
   end
 end
