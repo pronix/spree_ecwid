@@ -16,6 +16,8 @@ class OrdersController < Spree::BaseController
     #Facebook or from fullfunctional shop
     if params[:from_fb] 
       redirect_to fbcart_path
+    elsif params[:from_vk]
+      redirect_to vkcart_path
     else
       redirect_to cart_path
     end

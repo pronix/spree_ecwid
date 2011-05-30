@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <title>Page Title</title>
+<%= javascript_include_tag 'jquery-1.4.2.min', 'jquery.validate.min.js', 'rails', 'application', :cache => 'jquery-core' %>
+<%= stylesheet_link_tag "screen", "default" %>
+<script src="http://vkontakte.ru/js/api/xd_connection.js?2" type="text/javascript"></script>
+<%= yield :head %>
+</head>
+
+<body >
+  <div class="canvas_container clearfix">
+    <%= yield %>
+  </div>
+</body>
