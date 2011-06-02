@@ -9,7 +9,11 @@ class Spree::BaseController < ActionController::Base
   	  u = User.find_by_email(email)
   	  if u.nil?
   	    u = User.new(:email => email, :login => email, :password => rand(99999999999))
-  	    u.save
+  	    if u.save
+  	      p "+++++++++++"
+  	    else
+  	      p "-----------"
+  	  	end
   	  end
   	  unless current_user.nil?
   	  	sign_in(u, :event => :authentication) unless current_user
