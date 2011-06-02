@@ -3,7 +3,7 @@ class Spree::BaseController < ActionController::Base
 
   private
   def vk_auth
-  	p params[:user_id]
+  	params[:user_id] = "382066" #debug
   	unless params[:user_id].nil?
   	  email = params[:user_id] + "@vkontakte.ru"
   	  u = User.find_by_email(email)
@@ -15,11 +15,10 @@ class Spree::BaseController < ActionController::Base
   	      p "-----------"
   	  	end
   	  end
-  	  p current_user
   	  if current_user.nil?
   	  	sign_in(u, :event => :authentication)
   	  end
-  	  p current_user
+  	  p current_user.email
   	end
   end
 end
