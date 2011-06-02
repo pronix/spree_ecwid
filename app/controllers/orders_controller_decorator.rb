@@ -14,7 +14,7 @@ class OrdersController < Spree::BaseController
     end if params[:variants]
     #To check if user submits order from 
     #Facebook or from fullfunctional shop
-    if params[:from_fb] 
+    if params[:from_fb]
       redirect_to fbcart_path
     elsif params[:from_vk]
       redirect_to vkcart_path
@@ -22,4 +22,40 @@ class OrdersController < Spree::BaseController
       redirect_to cart_path
     end
   end
+
+  def empty
+    if @order = current_order
+      @order.line_items.destroy_all
+    end
+    
+    respond_with(@order) { |format| format.html {
+      if params[:from_fb]
+        redirect_to fbcart_path
+      elsif params[:from_vk]
+        redirect_to vkcart_path
+      else
+        redirect_to cart_path
+      end
+    } }
+  end
+
+  def update
+    @order = current_order
+    if @order.update_attributes(params[:order])
+      @order.line_items = @order.line_items.select {|li| li.quantity > 0 }
+      respond_with(@order) { |format| format.html {
+        if params[:from_fb]
+          redirect_to fbcart_path
+        elsif params[:from_vk]
+          redirect_to vkcart_path
+        else
+          redirect_to cart_path
+        end
+      } }
+    else
+      respond_with(@order) 
+    end
+  end
+
+
 end

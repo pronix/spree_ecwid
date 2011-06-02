@@ -11,7 +11,7 @@
   </td>
   <td>
     <%= hook :cart_item_description, locals do %>
-      <h4><%= link_to variant.product.name,  product_path(variant.product) %></h4>
+      <h4><%= link_to variant.product.name,  vkshow_path(:id => variant.product.id) %></h4>
       <%= variant_options variant %>
       <%= truncate(variant.product.description, :length => 100, :omission => "...") %>
     <% end %>
@@ -29,7 +29,7 @@
 
   <td>
     <%= hook :cart_item_total, locals do %>
-      <%= format_price((line_item.price* line_item.quantity).to_vk) unless line_item.quantity.nil? %>
+      <%= (line_item.price* line_item.quantity).to_vk unless line_item.quantity.nil? %>
     <% end %>
   </td>
   <td>

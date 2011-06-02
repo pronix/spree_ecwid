@@ -2,6 +2,7 @@ class FbstoreController < Spree::BaseController
   helper :taxons
   layout 'fbstore'
   def catalogue
+    p params
     @products = Product.all
   end
   
