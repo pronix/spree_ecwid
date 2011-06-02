@@ -16,7 +16,7 @@ class Spree::BaseController < ActionController::Base
   	  	end
   	  end
   	  p current_user
-  	  unless current_user.nil?
+  	  if current_user.nil?
   	  	sign_in(u, :event => :authentication)
   	  end
   	  p current_user
