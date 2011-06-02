@@ -3,7 +3,7 @@ class Spree::BaseController < ActionController::Base
 
   private
   def vk_auth
-  	params[:user_id] = "382066"
+  	p params[:user_id]
   	unless params[:user_id].nil?
   	  email = params[:user_id] + "@vkontakte.ru"
   	  u = User.find_by_email(email)
