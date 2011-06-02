@@ -18,7 +18,7 @@
   </td>
   <td>
     <%= hook :cart_item_price, locals do %>
-      <%=  line_item.price %>
+      <%=  line_item.price.to_vk %>
     <% end %>
   </td>
   <td>
@@ -29,7 +29,7 @@
 
   <td>
     <%= hook :cart_item_total, locals do %>
-      <%= format_price(line_item.price* line_item.quantity) unless line_item.quantity.nil? %>
+      <%= format_price((line_item.price* line_item.quantity).to_vk) unless line_item.quantity.nil? %>
     <% end %>
   </td>
   <td>

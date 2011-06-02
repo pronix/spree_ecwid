@@ -1,4 +1,5 @@
 class VkstoreController < Spree::BaseController
+  before_filter :vk_price
   helper :taxons
   layout 'vkstore'
   def catalogue
@@ -16,5 +17,11 @@ class VkstoreController < Spree::BaseController
 
   def cart
     @order = current_order(true)
+  end
+
+  private
+
+  def vk_price
+    session[:vk] = true
   end
 end

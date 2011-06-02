@@ -2,7 +2,7 @@
     <% for product in @products do %>
       <li>
         <span class="price">
-          <%= product.price %>
+          <%= product.price.to_vk %>
         </span>
         <%= link_to small_image(product), vkshow_path(:id => product.id) %>
         <h4>

@@ -3,7 +3,7 @@
   <% if @product.price %>
     <%= hook :product_price do %>
       <p>
-        <span class="selling"><%= @product.price %></span>
+        <span class="selling"><%= @product.price.to_vk %></span>
       </p>
     <% end %>
   <% end %>
