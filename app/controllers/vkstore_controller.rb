@@ -22,7 +22,7 @@ class VkstoreController < Spree::BaseController
   end
 
   def pay
-    user_id = current_user.split("@")[0]
+    user_id = current_user.login.split("@")[0]
     order = Order.find_by_id(params[:order_id])
     votes = (order.total.to_vk.to_f * 100).to_i
     rnd = rand(999)
