@@ -32,7 +32,6 @@ class VkstoreController < Spree::BaseController
     sig = Digest::MD5.hexdigest("api_id=#{api_id}" + "format=json" + "method=secure.withdrawVotes" + "random=#{rnd}" + "test_mode=#{test_mode}" + "timestamp=#{Time.now.to_i}" + "uid=#{user_id}" + "votes=#{votes}" + secret)
     req = "http://api.vkontakte.ru/api.php?api_id=#{api_id}&method=secure.withdrawVotes&format=json&timestamp=#{Time.now.to_i}&random=#{rnd}&uid=#{user_id}&votes=#{votes}&test_mode=#{test_mode}&sig=#{sig}"
     result = JSON.parse(Net::HTTP.get(URI.parse(req)))
-    p result
     if result["response"]
       payment = order.payments.build(:payment_method => order.payment_method)
       payment.state = "completed"
@@ -41,9 +40,11 @@ class VkstoreController < Spree::BaseController
       order.save!
       order.next! until order.state == "complete"
       session[:order_id] = nil
-      redirect_to vkcatalogue_path, :notice => I18n.t("payment_success")
+      flash[:notice] = I18n.t("payment_success")
+      redirect_to vkcatalogue_path
     else
-      redirect_to vkcatalogue_path, :error => I18n.t("payment_fail")
+      flash[:error] = I18n.t("payment_fail")
+      redirect_to vkcatalogue_path
     end
   end
 
