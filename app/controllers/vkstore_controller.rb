@@ -22,6 +22,7 @@ class VkstoreController < Spree::BaseController
   end
 
   def pay
+    p params
     order = Order.find_by_id(params[:order_id])
     votes = (order.total.to_vk.to_f * 100).to_i
     rnd = rand(999)
