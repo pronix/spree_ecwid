@@ -1,7 +1,6 @@
 class CheckoutController < Spree::BaseController
   layout 'vkstore'
   def edit
-  	p "!!!!!!!!!!!!!"
   	p PaymentMethod.find_by_type("Gateway::Vkontakte")
   	@order.rate_hash.each do |shipping_method|
   	  shipping_method[:cost] = shipping_method[:cost].to_vk
