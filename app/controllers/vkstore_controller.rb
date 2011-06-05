@@ -30,10 +30,9 @@ class VkstoreController < Spree::BaseController
     test_mode = 0 # 0/1
     sig = Digest::MD5.hexdigest("api_id=#{api_id}" + "format=json" + "method=secure.withdrawVotes" + "random=#{rnd}" + "test_mode=#{test_mode}" + "timestamp=#{Time.now.to_i}" + "uid=#{params[:user_id]}" + "votes=#{votes}" + secret)
     req = "http://api.vkontakte.ru/api.php?api_id=#{api_id}&method=secure.withdrawVotes&format=json&timestamp=#{Time.now.to_i}&random=#{rnd}&uid=#{params[:user_id]}&votes=#{votes}&test_mode=#{test_mode}&sig=#{sig}"
-    p req
     result = JSON.parse(Net::HTTP.get(URI.parse(req)))
     p result
-    if result["response"]["transferred"]
+    if result["response"]
       payment = order.payments.build(:payment_method => order.payment_method)
       payment.state = "completed"
       payment.amount = order.total.to_f
@@ -50,22 +49,17 @@ class VkstoreController < Spree::BaseController
   private
 
   def vk_auth
-    params[:user_id] = "382066" #debug
+    #params[:user_id] = "382066" #debug
     unless params[:user_id].nil?
       email = params[:user_id] + "@vkontakte.ru"
       u = User.find_by_email(email)
       if u.nil?
         u = User.new(:email => email, :login => email, :password => rand(99999999999))
-        if u.save
-          p "+++++++++++"
-        else
-          p "-----------"
-        end
+        u.save
       end
       if current_user.nil?
         sign_in(u, :event => :authentication)
       end
-      p current_user.email
     end
   end
 end
