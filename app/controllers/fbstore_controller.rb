@@ -1,8 +1,15 @@
+require 'json'
+require 'net/http'
 class FbstoreController < Spree::BaseController
   helper :taxons
   layout 'fbstore'
   def catalogue
     p params
+    session = FacebookApi::Session.new(cookies["#{FacebookApi.api_key}_session_key", cookies["#{FacebookApi.api_key}_user"])
+    p session
+    response = session.call('Friends.get', :uid => '100000412676930')
+    p response
+
     @products = Product.all
   end
   
