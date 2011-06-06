@@ -5,13 +5,8 @@ class FbstoreController < Spree::BaseController
   layout 'fbstore'
   def catalogue
     p params
-    p cookies
-    p FacebookApi.api_key
-    session = FacebookApi::Session.new(cookies["#{FacebookApi.api_key}_session_key"], cookies["#{FacebookApi.api_key}_user"])
-    p session
-    response = session.call('Friends.get', :uid => '100000412676930')
-    p response
-
+    a = Koala::Facebook::OAuth.new(126581324089558, "d9426496ce5869ff9151d946cd20731b", "http://unfollowers.ru/fbstore/api/")
+    p a
     @products = Product.all
   end
   
