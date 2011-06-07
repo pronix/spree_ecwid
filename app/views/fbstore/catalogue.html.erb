@@ -9,8 +9,9 @@
   });
   FB.getLoginStatus(function(response) {
     if (response.session) {
-      // logged in and connected user, someone you know
-      alert(response.session);
+      FB.api('/me', function(response) {
+        alert(response.name);
+      });
     } else {
       // no user session available, someone you dont know
     }
@@ -21,9 +22,6 @@
     });
     return false;
   }
-  FB.api('/me', function(response) {
-    alert(response.name);
-  });
 </script>
 <a href="#" onclick="return l();">test</a>
   <ul class="product-list clearfix">
