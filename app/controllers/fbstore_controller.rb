@@ -6,7 +6,7 @@ class FbstoreController < Spree::BaseController
   def catalogue
     p params
     p cookies
-    @oauth = Koala::Facebook::OAuth.new(126581324089558, "d9426496ce5869ff9151d946cd20731b")
+    @oauth = Koala::Facebook::OAuth.new(126581324089558, "22a8623a09f4a9613dcb130552be822d")
     u = @oauth.get_user_info_from_cookies(cookies)
     p u
     @products = Product.all
