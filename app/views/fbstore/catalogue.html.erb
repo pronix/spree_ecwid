@@ -7,6 +7,15 @@
     cookie : true, // enable cookies to allow the server to access the session
     xfbml  : true  // parse XFBML
   });
+  FB.getLoginStatus(function(response) {
+    if (response.session) {
+      // logged in and connected user, someone you know
+      alert(response.session);
+    } else {
+      // no user session available, someone you dont know
+      alert(response);
+    }
+  });
   FB.login(function(response) {
     if (response.session) {
       // user successfully logged in
