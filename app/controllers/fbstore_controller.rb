@@ -5,14 +5,9 @@ class FbstoreController < Spree::BaseController
   layout 'fbstore'
   def catalogue
     p params
-    oauth = Koala::Facebook::OAuth.new(126581324089558, "d9426496ce5869ff9151d946cd20731b", "http://unfollowers.ru/fbstore/api/")
-    oauth_access_token = oauth.get_app_access_token
-    p oauth_access_token
-    graph = Koala::Facebook::GraphAPI.new(oauth_access_token)
-    p graph
-    #graph = Koala::Facebook::GraphAPI.new("126581324089558|Knd9KmEXyz1UozMytst2B_c_Hk4")
-    profile = graph.get_object("me")
-    p profile
+    @oauth = Koala::Facebook::OAuth.new(126581324089558, "d9426496ce5869ff9151d946cd20731b")
+    u = @oauth.get_user_info_from_cookies(cookies)
+    p u
     @products = Product.all
   end
   
