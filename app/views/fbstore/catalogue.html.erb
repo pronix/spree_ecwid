@@ -16,7 +16,9 @@
     }
   });
   function l(){
-    FB.logout();
+    FB.api('/me', function(response) {
+      alert(response.name);
+    });
     return false;
   }
   /*FB.api('/me', function(response) {
