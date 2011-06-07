@@ -1,38 +1,34 @@
-<div id="fb-root"></div>
-<script src="http://connect.facebook.net/en_US/all.js"></script>
-<p> <a onclick="placeOrder(); return false;">Buy Stuff</a></p>
+ <script> 
+     function displayUser(user) {
+       var userName = document.getElementById('userName');
+       var greetingText = document.createTextNode('Greetings, '
+         + user.name + '.');
+   userName.appendChild(greetingText);
+     }
 
-<script> 
-    FB.init({appId: 126581324089558, status: true, cookie: true});
+     var appID = YOUR_APP_ID;
+     if (window.location.hash.length == 0) {
+       var path = 'https://www.facebook.com/dialog/oauth?';
+   var queryParams = ['client_id=' + appID,
+     'redirect_uri=' + window.location,
+     'response_type=token'];
+   var query = queryParams.join('&');
+   var url = path + query;
+   window.open(url);
+     } else {
+       var accessToken = window.location.hash.substring(1);
+       var path = "https://graph.facebook.com/me?";
+   var queryParams = [accessToken, 'callback=displayUser'];
+   var query = queryParams.join('&');
+   var url = path + query;
 
-    function placeOrder() {
-
-      // Assign an internal ID that points to a database record
-      var order_info = 'abc123';
-
-      // calling the API ...
-      var obj = {
-        method: 'pay',
-        order_info: order_info,
-        purchase_type: 'item'
-      };
-
-      FB.ui(obj, callback);
-    }
-    
-    var callback = function(data) {
-      if (data['order_id']) {
-        return true;
-      } else {
-        //handle errors here
-        return false;
-      }
-    };
-
-    function writeback(str) {
-      document.getElementById('output').innerHTML=str;
-    }
-</script>
+   // use jsonp to call the graph
+       var script = document.createElement('script');
+       script.src = url;
+       document.body.appendChild(script);        
+     }
+   </script> 
+   <p id="userName"></p> 
 
   <ul class="product-list clearfix">
     <% for product in @products do %>
