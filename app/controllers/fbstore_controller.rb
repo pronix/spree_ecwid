@@ -28,14 +28,19 @@ class FbstoreController < Spree::BaseController
   def api
     unless params[:user_id].nil?
       email = params[:user_id].to_i.to_s + "@facebook.com"
+      p email
       u = User.find_by_email(email)
+      p u
       if u.nil?
         u = User.new(:email => email, :login => email, :password => rand(99999999999))
         u.save
       end
+      p u
       if current_user.nil?
         sign_in(u, :event => :authentication)
       end
+      p current_user
     end
+    render :nothing => true
   end
 end
