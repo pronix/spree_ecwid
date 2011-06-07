@@ -13,21 +13,23 @@
       alert(response.session);
     } else {
       // no user session available, someone you dont know
-      alert(response);
     }
   });
-  FB.login(function(response) {
-    if (response.session) {
-      // user successfully logged in
-    } else {
-      // user cancelled login
-    }
-  });
+  function l(){
+    FB.login(function(response) {
+      if (response.session) {
+        // user successfully logged in
+      } else {
+        // user cancelled login
+      }
+    });
+    return false;
+  }
   /*FB.api('/me', function(response) {
     alert(response.name);
   });*/
 </script>
-
+<a href="#" onclick="return l();">test</a>
   <ul class="product-list clearfix">
     <% for product in @products do %>
       <li>
