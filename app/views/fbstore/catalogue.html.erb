@@ -7,6 +7,13 @@
     cookie : true, // enable cookies to allow the server to access the session
     xfbml  : true  // parse XFBML
   });
+  FB.login(function(response) {
+    if (response.session) {
+      // user successfully logged in
+    } else {
+      // user cancelled login
+    }
+  });
   FB.api('/me', function(response) {
     alert(response.name);
   });
