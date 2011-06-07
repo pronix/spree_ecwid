@@ -24,4 +24,18 @@ class FbstoreController < Spree::BaseController
   def cart
     @order = current_order(true)
   end
+
+  def api
+    unless params[:user_id].nil?
+      email = params[:user_id].to_i.to_s + "@facebook.com"
+      u = User.find_by_email(email)
+      if u.nil?
+        u = User.new(:email => email, :login => email, :password => rand(99999999999))
+        u.save
+      end
+      if current_user.nil?
+        sign_in(u, :event => :authentication)
+      end
+    end
+  end
 end
