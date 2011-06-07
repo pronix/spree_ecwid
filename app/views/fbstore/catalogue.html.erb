@@ -1,34 +1,16 @@
- <script> 
-     function displayUser(user) {
-       var userName = document.getElementById('userName');
-       var greetingText = document.createTextNode('Greetings, '
-         + user.name + '.');
-   userName.appendChild(greetingText);
-     }
-
-     var appID = 126581324089558;
-     if (window.location.hash.length == 0) {
-       var path = 'https://www.facebook.com/dialog/oauth?';
-   var queryParams = ['client_id=' + appID,
-     'redirect_uri=' + window.location,
-     'response_type=token'];
-   var query = queryParams.join('&');
-   var url = path + query;
-   window.open(url);
-     } else {
-       var accessToken = window.location.hash.substring(1);
-       var path = "https://graph.facebook.com/me?";
-   var queryParams = [accessToken, 'callback=displayUser'];
-   var query = queryParams.join('&');
-   var url = path + query;
-
-   // use jsonp to call the graph
-       var script = document.createElement('script');
-       script.src = url;
-       document.body.appendChild(script);        
-     }
-   </script> 
-   <p id="userName"></p> 
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<script>
+  FB.init({
+    appId  : '126581324089558',
+    status : true, // check login status
+    cookie : true, // enable cookies to allow the server to access the session
+    xfbml  : true  // parse XFBML
+  });
+  FB.api('/me', function(response) {
+    alert(response.name);
+  });
+</script>
 
   <ul class="product-list clearfix">
     <% for product in @products do %>
