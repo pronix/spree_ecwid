@@ -10,7 +10,12 @@
   FB.getLoginStatus(function(response) {
     if (response.session) {
       FB.api('/me', function(response) {
-        alert(response.name);
+        //alert(response.id);
+        $.ajax({
+          url: '/fbstore/api',
+          type: 'POST',
+          data: 'user_id=' + response.id
+        });
       });
     } else {
       // no user session available, someone you dont know
