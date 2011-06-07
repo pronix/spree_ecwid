@@ -16,13 +16,7 @@
     }
   });
   function l(){
-    FB.login(function(response) {
-      if (response.session) {
-        // user successfully logged in
-      } else {
-        // user cancelled login
-      }
-    });
+    FB.logout();
     return false;
   }
   /*FB.api('/me', function(response) {
