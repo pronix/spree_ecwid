@@ -55,8 +55,8 @@ class FbstoreController < Spree::BaseController
       req = '{"content":[{"title":"[Test Mode] Unicorn","description":"[Test Mode] Own your own mythical beast!","price":' + order.total.to_fb.to_i.to_s + ',"image_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","product_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png"}],"method":"payments_get_items"}'
     elsif params[:method] == "payments_status_update"
       if params[:status] == 'placed'
-        #req = '{"method":"payments_status_update","status":"settled","order_id":"' + params[:order_id] + '"}'
-        req = '{"status":"settled"}'
+        #req = '{"method":"payments_status_update","order_details":{"status":"settled","order_id":"' + params[:order_id] + '"}}'
+        req = {:order_details=>{:status=>"settled", :order_id=>params[:order_id]}, :method=>"payments_status_update"}.to_json
       elsif params[:status] == 'settled'
         p "true"
       end
