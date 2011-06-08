@@ -21,5 +21,7 @@ class CheckoutController < Spree::BaseController
   	  @order_total = @order.total
   	  @methods = @order.available_payment_methods
 	end
+	p session
+	p @methods
   end
 end
