@@ -10,7 +10,7 @@
     </p>
 
     <ul id="payment-methods">
-      <% @methods do |method| %>
+      <% @methods.each do |method| %>
         <li id="payment_method_<%= method.id %>"<%= ' class="last"' if method == @order.available_payment_methods.last %>>
           <fieldset>
             <%= render "checkout/payment/#{method.method_type}", :payment_method => method %>
