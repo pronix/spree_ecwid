@@ -10,6 +10,7 @@
     </p>
 
     <ul id="payment-methods">
+      <%= @method %>
       <% method = PaymentMethod.find_by_type("Gateway::Vkontakte") %>
         <li id="payment_method_<%= method.id %>"<%= ' class="last"' if method == @order.available_payment_methods.last %>>
           <fieldset>

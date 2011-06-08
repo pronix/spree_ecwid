@@ -17,5 +17,6 @@ class CheckoutController < Spree::BaseController
 	  @item_total = @order.item_total
   	  @order_total = @order.total
 	end
+	@method = "!!!!!!!"
   end
 end
