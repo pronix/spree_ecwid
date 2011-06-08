@@ -50,7 +50,8 @@ class FbstoreController < Spree::BaseController
     req = ""
     if params[:method] == "payments_get_items"
       order = Order.find_by_id(params[:order_info])
-      req = '{"content":[{"title":"[Test Mode] Unicorn","description":"[Test Mode] Own your own mythical beast!","price":' + order.total.to_fb.to_i.to_s + ',"image_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","product_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","item_id":"' + order.id.to_s + '"}],"method":"payments_get_items"}'
+      #req = '{"content":[{"title":"[Test Mode] Unicorn","description":"[Test Mode] Own your own mythical beast!","price":' + order.total.to_fb.to_i.to_s + ',"image_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","product_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","item_id":"' + order.id.to_s + '"}],"method":"payments_get_items"}'
+      req = {:content => [{:title => "Title", :description => "Description", :price => order.total.to_fb.to_i.to_s, :item_id => order.id}], :method => "payments_get_items"}.to_json
       render :text => req
     elsif params[:method] == "payments_status_update"
       if params[:status] == 'placed'
@@ -59,7 +60,6 @@ class FbstoreController < Spree::BaseController
       elsif params[:status] == 'settled'
         order_details = JSON.parse(params[:order_details])
         item_id = order_details["items"][0]["item_id"]
-        p item_id
         order = Order.find_by_id(item_id)
         payment = order.payments.build(:payment_method => order.payment_method)
         payment.state = "completed"
@@ -70,13 +70,11 @@ class FbstoreController < Spree::BaseController
         session[:order_id] = nil
         flash[:notice] = I18n.t("payment_success")
         redirect_to fbcatalogue_path
-      elsif params[:status] == 'settled'
+      elsif params[:status] == 'refunded'
         flash[:error] = I18n.t("payment_fail")
         redirect_to fbcatalogue_path
       end
     end
-    p req
-    #render :text => req
   end
 
   private
