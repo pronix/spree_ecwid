@@ -1,8 +1,9 @@
 class CheckoutController < Spree::BaseController
+  layout 'vkstore' if session[:from_social] == 'vk'
+  layout 'fbstore' if session[:from_social] == 'fb'
   def edit
   	@methods = []
   	if session[:from_social] == 'vk'
-  	  layout 'vkstore'
 	  @order.rate_hash.each do |shipping_method|
 	    shipping_method[:cost] = shipping_method[:cost].to_vk
 	  end
@@ -10,7 +11,6 @@ class CheckoutController < Spree::BaseController
   	  @order_total = @order.total.to_vk
   	  @methods << PaymentMethod.find_by_type("Gateway::Vkontakte")
 	elsif session[:from_social] == 'fb'
-	  layout 'fbstore'
 	  @order.rate_hash.each do |shipping_method|
 	    shipping_method[:cost] = shipping_method[:cost].to_fb
 	  end

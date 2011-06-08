@@ -4,10 +4,10 @@ FacebookStore
 Introduction goes here.
 
 
-Example
+Configuration
 =======
 
-Example goes here.
+Edit config/socials.yml
 
 
 Copyright (c) 2011 [name of extension creator], released under the New BSD License
