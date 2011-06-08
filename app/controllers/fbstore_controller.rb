@@ -47,7 +47,7 @@ class FbstoreController < Spree::BaseController
 
   def api
     p params
-    render :nothing => true
+    render :text => '{"content":[{"title":"[Test Mode] Unicorn","description":"[Test Mode] Own your own mythical beast!","price":2,"image_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","product_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png"}],"method":"payments_get_items"}'
   end
 
   private
