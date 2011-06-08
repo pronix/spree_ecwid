@@ -2,6 +2,7 @@ require 'json'
 require 'net/http'
 class VkstoreController < Spree::BaseController
   before_filter :vk_auth
+  before_filter :vk_sess
   helper :taxons
   layout 'vkstore'
   def catalogue
@@ -65,5 +66,9 @@ class VkstoreController < Spree::BaseController
         sign_in(u, :event => :authentication)
       end
     end
+  end
+
+  def vk_sess
+    session[:from_social] = 'vk'
   end
 end

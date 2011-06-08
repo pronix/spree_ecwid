@@ -1,6 +1,7 @@
 require 'json'
 require 'net/http'
 class FbstoreController < Spree::BaseController
+  before_filter :fb_sess
   helper :taxons
   layout 'fbstore'
   def catalogue
@@ -42,5 +43,11 @@ class FbstoreController < Spree::BaseController
       p current_user
     end
     render :nothing => true
+  end
+
+  private
+
+  def fb_sess
+    session[:from_social] = 'fb'
   end
 end
