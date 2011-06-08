@@ -60,6 +60,7 @@ class FbstoreController < Spree::BaseController
         p "true"
       end
     end
+    p req
     render :text => req
   end
 
