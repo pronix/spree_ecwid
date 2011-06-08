@@ -51,9 +51,11 @@ class FbstoreController < Spree::BaseController
     if params[:method] == "payments_get_items"
       order = Order.find_by_id(params[:order_info])
       req = '{"content":[{"title":"[Test Mode] Unicorn","description":"[Test Mode] Own your own mythical beast!","price":' + order.total.to_fb.to_i.to_s + ',"image_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","product_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","item_id":"' + order.id.to_s + '"}],"method":"payments_get_items"}'
+      render :text => req
     elsif params[:method] == "payments_status_update"
       if params[:status] == 'placed'
         req = {:content=>{:status=>"settled", :order_id=>params[:order_id]}, :method=>"payments_status_update"}.to_json
+        render :text => req
       elsif params[:status] == 'settled'
         order_details = JSON.parse(params[:order_details])
         item_id = order_details["items"][0]["item_id"]
@@ -74,7 +76,7 @@ class FbstoreController < Spree::BaseController
       end
     end
     p req
-    render :text => req
+    #render :text => req
   end
 
   private
