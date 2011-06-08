@@ -46,11 +46,9 @@ class FbstoreController < Spree::BaseController
   end
 
   def api
-    p params
     req = ""
     if params[:method] == "payments_get_items"
       order = Order.find_by_id(params[:order_info])
-      #req = '{"content":[{"title":"[Test Mode] Unicorn","description":"[Test Mode] Own your own mythical beast!","price":' + order.total.to_fb.to_i.to_s + ',"image_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","product_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","item_id":"' + order.id.to_s + '"}],"method":"payments_get_items"}'
       req = {:content => [{:title => "Title", :description => "Description", :price => order.total.to_fb.to_i.to_s, :item_id => order.id}], :method => "payments_get_items"}.to_json
       render :text => req
     elsif params[:method] == "payments_status_update"
