@@ -2,6 +2,7 @@ class CheckoutController < Spree::BaseController
   layout 'vkstore' if session[:from_social] == 'vk'
   layout 'fbstore' if session[:from_social] == 'fb'
   def edit
+  	p session
   	@methods = []
   	if session[:from_social] == 'vk'
 	  @order.rate_hash.each do |shipping_method|
