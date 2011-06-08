@@ -10,13 +10,13 @@
     </p>
 
     <ul id="payment-methods">
-      <%= @method %>
-      <% method = PaymentMethod.find_by_type("Gateway::Vkontakte") %>
+      <% @methods do |method| %>
         <li id="payment_method_<%= method.id %>"<%= ' class="last"' if method == @order.available_payment_methods.last %>>
           <fieldset>
             <%= render "checkout/payment/#{method.method_type}", :payment_method => method %>
           </fieldset>
         </li>
+      <% end %>
     </ul>
     <br style='clear:both;' />
     <%= hook :coupon_code_field, {:form => form} %>
