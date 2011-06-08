@@ -1,13 +1,14 @@
 <fieldset id="payment">
   <legend><%= t("payment_information") %></legend>
   <%= hook :checkout_payment_step, {:form => form} do %>
-    <% method = PaymentMethod.find_by_type("Gateway::Vkontakte") %>
+    <% @methods.each do |method| %>
     <p>
       <label>
         <%= radio_button_tag "order[payments_attributes][][payment_method_id]", method.id, method == @order.payment_method %>
         <%= t(method.name, :scope => :payment_methods, :default => method.name) %>
       </label>
     </p>
+    <% end %>
 
     <ul id="payment-methods">
       <% @methods.each do |method| %>
