@@ -50,13 +50,14 @@ class FbstoreController < Spree::BaseController
     req = ""
     if params[:method] == "payments_get_items"
       order = Order.find_by_id(params[:order_info])
-      req = '{"content":[{"title":"[Test Mode] Unicorn","description":"[Test Mode] Own your own mythical beast!","price":' + order.total.to_fb.to_i.to_s + ',"image_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","product_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","order_id":"' + order.id.to_s + '"}],"method":"payments_get_items"}'
+      req = '{"content":[{"title":"[Test Mode] Unicorn","description":"[Test Mode] Own your own mythical beast!","price":' + order.total.to_fb.to_i.to_s + ',"image_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","product_url":"http:\/\/www.facebook.com\/images\/gifts\/21.png","item_id":"' + order.id.to_s + '"}],"method":"payments_get_items"}'
     elsif params[:method] == "payments_status_update"
       if params[:status] == 'placed'
         req = {:content=>{:status=>"settled", :order_id=>params[:order_id]}, :method=>"payments_status_update"}.to_json
       elsif params[:status] == 'settled'
-        order = Order.find_by_id(params[:order_id])
-        p params[:order_id]
+        p params
+        order = Order.find_by_id(params[:item_id])
+        p params[:item_id]
         p order
         payment = order.payments.build(:payment_method => order.payment_method)
         payment.state = "completed"
