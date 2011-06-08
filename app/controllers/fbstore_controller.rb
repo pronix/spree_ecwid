@@ -56,6 +56,8 @@ class FbstoreController < Spree::BaseController
         req = {:content=>{:status=>"settled", :order_id=>params[:order_id]}, :method=>"payments_status_update"}.to_json
       elsif params[:status] == 'settled'
         order = Order.find_by_id(params[:order_id])
+        p params[:order_id]
+        p order
         payment = order.payments.build(:payment_method => order.payment_method)
         payment.state = "completed"
         payment.amount = order.total.to_f
