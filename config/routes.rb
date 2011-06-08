@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   match "vkcart" => "vkstore#cart", :as => "vkcart"
   match '/vkstore/pay' => 'vkstore#pay'
   match '/fbstore/api' => 'fbstore#api'
+  match '/fbstore/auth' => 'fbstore#auth'
 end

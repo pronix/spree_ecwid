@@ -26,7 +26,7 @@ class FbstoreController < Spree::BaseController
     @order = current_order(true)
   end
 
-  def api
+  def auth
     unless params[:user_id].nil?
       email = params[:user_id].to_i.to_s + "@facebook.com"
       p email
@@ -42,6 +42,11 @@ class FbstoreController < Spree::BaseController
       end
       p current_user
     end
+    render :nothing => true
+  end
+
+  def api
+    p params
     render :nothing => true
   end
 

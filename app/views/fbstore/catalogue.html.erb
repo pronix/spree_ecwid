@@ -12,7 +12,7 @@
       FB.api('/me', function(response) {
         //alert(response.id);
         $.ajax({
-          url: '/fbstore/api',
+          url: '/fbstore/auth',
           type: 'POST',
           data: 'user_id=' + response.id
         });
