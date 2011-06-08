@@ -5,11 +5,6 @@ class FbstoreController < Spree::BaseController
   helper :taxons
   layout 'fbstore'
   def catalogue
-    p params
-    p cookies
-    @oauth = Koala::Facebook::OAuth.new(126581324089558, "22a8623a09f4a9613dcb130552be822d")
-    u = @oauth.get_user_info_from_cookies(cookies)
-    p u
     @products = Product.all
   end
   
@@ -49,7 +44,7 @@ class FbstoreController < Spree::BaseController
     req = ""
     if params[:method] == "payments_get_items"
       order = Order.find_by_id(params[:order_info])
-      req = {:content => [{:title => "Title", :description => "Description", :price => order.total.to_fb.to_i.to_s, :item_id => order.id}], :method => "payments_get_items"}.to_json
+      req = {:content => [{:title => "Order " + order.number, :description => "Payment for order " + order.number, :price => order.total.to_fb.to_i.to_s, :item_id => order.id}], :method => "payments_get_items"}.to_json
       render :text => req
     elsif params[:method] == "payments_status_update"
       if params[:status] == 'placed'
@@ -67,10 +62,8 @@ class FbstoreController < Spree::BaseController
         order.next! until order.state == "complete"
         session[:order_id] = nil
         flash[:notice] = I18n.t("payment_success")
-        redirect_to fbcatalogue_path
       elsif params[:status] == 'refunded'
         flash[:error] = I18n.t("payment_fail")
-        redirect_to fbcatalogue_path
       end
     end
   end
