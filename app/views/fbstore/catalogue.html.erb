@@ -1,32 +1,3 @@
-<div id="fb-root"></div>
-<script src="http://connect.facebook.net/en_US/all.js"></script>
-<script>
-  FB.init({
-    appId  : '126581324089558',
-    status : true, // check login status
-    cookie : true, // enable cookies to allow the server to access the session
-    xfbml  : true  // parse XFBML
-  });
-  FB.getLoginStatus(function(response) {
-    if (response.session) {
-      FB.api('/me', function(response) {
-        //alert(response.id);
-        $.ajax({
-          url: '/fbstore/auth',
-          type: 'POST',
-          data: 'user_id=' + response.id
-        });
-      });
-    } else {
-      // no user session available, someone you dont know
-    }
-  });
-  function l(){
-    alert(document.cookie);
-    return false;
-  }
-</script>
-<a href="#" onclick="return l();">test</a>
   <ul class="product-list clearfix">
     <% for product in @products do %>
       <li>
