@@ -56,8 +56,8 @@ class FbstoreController < Spree::BaseController
     elsif params[:method] == "payments_status_update"
       if params[:status] == 'placed'
         #req = '{"method":"payments_status_update","order_details":{"status":"settled","order_id":"' + params[:order_id] + '"}}'
-        #req = {:order_details=>{:status=>"settled", :order_id=>params[:order_id]}, :method=>"payments_status_update"}.to_json
-        req = '{"method":"payments_status_update","order_details":{"order_id":"' + params[:order_id] + '","status":"settled"}}'
+        req = {:content=>{:status=>"settled", :order_id=>params[:order_id]}, :method=>"payments_status_update"}.to_json
+        #req = '{"method":"payments_status_update","order_details":{"order_id":"' + params[:order_id] + '","status":"settled"}}'
       elsif params[:status] == 'settled'
         p "true"
       end
