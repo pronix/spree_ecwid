@@ -29,7 +29,7 @@ class VkstoreController < Spree::BaseController
     rnd = rand(999)
     secret = SVP::CONFIG["vkontakte"]["secret"]
     api_id = 2347364 # id приложения
-    test_mode = 0 # 0/1
+    test_mode = 1 # 0/1
     sig = Digest::MD5.hexdigest("api_id=#{api_id}" + "format=json" + "method=secure.withdrawVotes" + "random=#{rnd}" + "test_mode=#{test_mode}" + "timestamp=#{Time.now.to_i}" + "uid=#{user_id}" + "votes=#{votes}" + secret)
     req = "http://api.vkontakte.ru/api.php?api_id=#{api_id}&method=secure.withdrawVotes&format=json&timestamp=#{Time.now.to_i}&random=#{rnd}&uid=#{user_id}&votes=#{votes}&test_mode=#{test_mode}&sig=#{sig}"
     result = JSON.parse(Net::HTTP.get(URI.parse(req)))
