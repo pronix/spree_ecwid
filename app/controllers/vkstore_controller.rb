@@ -27,7 +27,7 @@ class VkstoreController < Spree::BaseController
     order = Order.find_by_id(params[:order_id])
     votes = (order.total.to_vk.to_f * 100).to_i
     rnd = rand(999)
-    secret = SVP::CONFIG["vkontakte.secret"]
+    secret = SVP::CONFIG["vkontakte"]["secret"]
     api_id = 2347364 # id приложения
     test_mode = 0 # 0/1
     sig = Digest::MD5.hexdigest("api_id=#{api_id}" + "format=json" + "method=secure.withdrawVotes" + "random=#{rnd}" + "test_mode=#{test_mode}" + "timestamp=#{Time.now.to_i}" + "uid=#{user_id}" + "votes=#{votes}" + secret)
